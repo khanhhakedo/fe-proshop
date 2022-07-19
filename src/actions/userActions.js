@@ -17,7 +17,7 @@ export const login = (userName, userPassword) => async (dispatch) => {
     }
 
     const { data } = await axios.post(
-      'http://localhost:8080/api/v1/users/login',
+      'http://localhost:8080/authenticate',
       { userName, userPassword },
       config
     )

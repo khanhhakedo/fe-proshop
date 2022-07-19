@@ -12,6 +12,7 @@ const Header = () => {
   const logoutHandler = () => {
     dispatch(logout())
   }
+
   return (
     <header>
       <Navbar bg="dark" variant='dark' expand="lg" collapseOnSelect>
@@ -43,7 +44,7 @@ const Header = () => {
                 </Nav.Link>
               </LinkContainer>
             )}
-            {userInfo && (
+            {userInfo &&  (
               <NavDropdown title='Admin' id='adminmenu'>
                 <LinkContainer to='/admin/userlist'>
                   <NavDropdown.Item>Users</NavDropdown.Item>
