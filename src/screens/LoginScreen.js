@@ -8,8 +8,8 @@ import FormContainer from '../components/FormContainer'
 import { login } from '../actions/userActions'
 
 const LoginScreen = ({ location, history }) => {
-  const [username, setUserName] = useState('')
-  const [password, setPassword] = useState('')
+  const [userName, setuserName] = useState('')
+  const [userPassword, setuserPassword] = useState('')
 
   const dispatch = useDispatch()
 
@@ -26,7 +26,7 @@ const LoginScreen = ({ location, history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(login(username, password))
+    dispatch(login(userName, userPassword))
   }
 
   return (
@@ -35,23 +35,23 @@ const LoginScreen = ({ location, history }) => {
       {error && <Message variant='danger'>{error}</Message>}
       {loading && <Loader />}
       <Form onSubmit={submitHandler}>
-        <Form.Group controlId='username'>
+        <Form.Group controlId='userName'>
           <Form.Label>UserName Address</Form.Label>
           <Form.Control
-            type='username'
-            placeholder='Enter username'
-            value={username}
-            onChange={(e) => setUserName(e.target.value)}
+            type='userName'
+            placeholder='Enter userName'
+            value={userName}
+            onChange={(e) => setuserName(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
-        <Form.Group controlId='password'>
+        <Form.Group controlId='userPassword'>
           <Form.Label>Password</Form.Label>
           <Form.Control
-            type='password'
-            placeholder='Enter password'
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            type='userPassword'
+            placeholder='Enter userPassword'
+            value={userPassword}
+            onChange={(e) => setuserPassword(e.target.value)}
           ></Form.Control>
         </Form.Group>
 
