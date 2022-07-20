@@ -202,7 +202,7 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
     const config = {
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${userInfo.user.token}`,
+        Authorization: `Bearer ${userInfo.jwtToken}`,
       },
     }
 
@@ -238,7 +238,7 @@ export const listUsers = () => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userInfo.user.token}`,
+        Authorization: `Bearer ${userInfo.jwtToken}`,
       },
     };
 
@@ -276,7 +276,7 @@ export const deleteUser = (id) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userInfo.jwtToken}`,
       },
     };
 
