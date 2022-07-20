@@ -82,7 +82,7 @@ export const register = (userName, email, userPassword) => async (dispatch) => {
     };
 
     const { data } = await axios.post(
-      "http://localhost:8080/api/v1/users",
+      "http://localhost:8080/api/v1/users/create",
       { userName, email, userPassword },
       config
     );
@@ -113,25 +113,64 @@ export const register = (userName, email, userPassword) => async (dispatch) => {
   }
 };
 
-export const getUserDetails = (id) => async (dispatch, getState) => {
+// export const getUserDetails = (id) => async (dispatch, getState) => {
+//   try {
+//     dispatch({
+//       type: USER_DETAILS_REQUEST,
+//     });
+
+//     const {
+//       userLogin: { userInfo },
+//     } = getState();
+
+//     const config = {
+//       headers: {
+//         Authorization: `Bearer ${userInfo.token}`,
+//       },
+//     };
+
+//     const { data } = await axios.get(
+//       `http://localhost:8080/api/v1/users/username/${id}`,
+//       config
+//     );
+
+//     dispatch({
+//       type: USER_DETAILS_SUCCESS,
+//       payload: data,
+//     });
+//   } catch (error) {
+//     const message =
+//       error.response && error.response.data.message
+//         ? error.response.data.message
+//         : error.message;
+//     if (message === "Not authorized, token failed") {
+//       dispatch(logout());
+//     }
+//     dispatch({
+//       type: USER_DETAILS_FAIL,
+//       payload: message,
+//     });
+//   }
+// };
+
+
+
+export const getUserDetails = (userName) => async (dispatch) => {
   try {
     dispatch({
       type: USER_DETAILS_REQUEST,
     });
 
-    const {
-      userLogin: { userInfo },
-    } = getState();
+   
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userInfo.token}`,
+        'Content-Type': 'application/json',
       },
-    };
+    }
 
     const { data } = await axios.get(
-      `http://localhost:8080/api/v1/users/${id}`,
-      config
+      `http://localhost:8080/api/v1/users/username/${userName}`
     );
 
     dispatch({
@@ -139,16 +178,12 @@ export const getUserDetails = (id) => async (dispatch, getState) => {
       payload: data,
     });
   } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    if (message === "Not authorized, token failed") {
-      dispatch(logout());
-    }
     dispatch({
-      type: USER_DETAILS_FAIL,
-      payload: message,
+      type: USER_REGISTER_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };
