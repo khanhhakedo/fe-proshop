@@ -200,37 +200,27 @@ export const updateUserProfile = (user) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        "Content-Type": "application/json",
-        Authorization: `Bearer ${userInfo.token}`,
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${userInfo.user.token}`,
       },
-    };
+    }
 
-    const { data } = await axios.put(
-      `http://localhost:8080/api/v1/users/profile/${user.id}`,
-      user,
-      config
-    );
+    const { data } = await axios.put(`http://localhost:8080/api/v1/users/${user.id}`, user, config)
 
     dispatch({
       type: USER_UPDATE_PROFILE_SUCCESS,
-      payload: data,
     });
-    dispatch({
-      type: USER_LOGIN_SUCCESS,
-      payload: data,
-    });
-    localStorage.setItem("userInfo", JSON.stringify(data));
+    dispatch({ type: USER_DETAILS_SUCCESS, payload: data })
+
+    dispatch({ type: USER_DETAILS_RESET })
+
   } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    if (message === "Not authorized, token failed") {
-      dispatch(logout());
-    }
     dispatch({
-      type: USER_UPDATE_PROFILE_FAIL,
-      payload: message,
+      type: USER_REGISTER_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };
@@ -247,7 +237,7 @@ export const listUsers = () => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userInfo.user.token}`,
       },
     };
 
@@ -261,19 +251,17 @@ export const listUsers = () => async (dispatch, getState) => {
       payload: data,
     });
   } catch (error) {
-    const message =
-      error.response && error.response.data.message
-        ? error.response.data.message
-        : error.message;
-    if (message === "Not authorized, token failed") {
-      dispatch(logout());
-    }
     dispatch({
       type: USER_LIST_FAIL,
-      payload: message,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };
+
+
 
 export const deleteUser = (id) => async (dispatch, getState) => {
   try {
