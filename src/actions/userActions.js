@@ -57,7 +57,7 @@ export const login = (userName, userPassword) => async (dispatch) => {
     });
   }
 };
-
+// logout
 export const logout = () => (dispatch) => {
   localStorage.removeItem("userInfo");
   //   localStorage.removeItem('cartItems')
