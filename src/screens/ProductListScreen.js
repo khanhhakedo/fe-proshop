@@ -38,12 +38,12 @@ const ProductListScreen = ({ history, match }) => {
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET });
 
-    if (!userInfo || userInfo.isAdmin) {
+    if ( !userInfo ||!userInfo.user.role[0].roleName === "Admin") {
       history.push("/login");
     }
 
     if (successCreate) {
-      history.push(`/admin/product/${createdProduct.id}/edit`);
+      history.push(`/admin/productlist`);
     } else {
       dispatch(listProducts());
     }
@@ -61,7 +61,7 @@ const ProductListScreen = ({ history, match }) => {
       dispatch(deleteProduct(id));
     }
   };
-  const createProductHandler = (product) => {
+  const createProductHandler = () => {
     dispatch(createProduct());
   };
 
