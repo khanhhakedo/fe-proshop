@@ -38,7 +38,7 @@ const ProductListScreen = ({ history, match }) => {
   useEffect(() => {
     dispatch({ type: PRODUCT_CREATE_RESET });
 
-    if ( !userInfo ||!userInfo.user.role[0].roleName === "Admin") {
+    if (!userInfo || !userInfo.user.role[0].roleName === "Admin") {
       history.push("/login");
     }
 
@@ -90,22 +90,42 @@ const ProductListScreen = ({ history, match }) => {
           <Table striped bordered hover responsive className="table-sm">
             <thead>
               <tr>
-                <th><center>ID</center></th>
-                <th><center>NAME</center></th>
-                <th><center>PRICE</center></th>
-                <th><center>CATEGORY</center></th>
-                <th><center>BRAND</center></th>
+                <th>
+                  <center>ID</center>
+                </th>
+                <th>
+                  <center>NAME</center>
+                </th>
+                <th>
+                  <center>PRICE</center>
+                </th>
+                <th>
+                  <center>CATEGORY</center>
+                </th>
+                <th>
+                  <center>BRAND</center>
+                </th>
                 <th></th>
               </tr>
             </thead>
             <tbody>
               {products.map((product) => (
                 <tr key={product.id}>
-                  <td><center>{product.id}</center></td>
-                  <td><center>{product.name}</center></td>
-                  <td><center>${product.price}</center></td>
-                  <td><center>{product.category}</center></td>
-                  <td><center>{product.brand}</center></td>
+                  <td>
+                    <center>{product.id}</center>
+                  </td>
+                  <td>
+                    <center>{product.name}</center>
+                  </td>
+                  <td>
+                    <center>${product.price}</center>
+                  </td>
+                  <td>
+                    <center>{product.category}</center>
+                  </td>
+                  <td>
+                    <center>{product.brand}</center>
+                  </td>
                   <td>
                     <LinkContainer to={`/admin/product/${product.id}/edit`}>
                       <Button variant="light" className="btn-sm">
