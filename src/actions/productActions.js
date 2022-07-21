@@ -98,11 +98,11 @@ export const createProduct = () => async (dispatch, getState) => {
   try {
     dispatch({
       type: PRODUCT_CREATE_REQUEST,
-    })
+    });
 
     const {
       userLogin: { userInfo },
-    } = getState()
+    } = getState();
 
     const config = {
       headers: {
@@ -131,35 +131,34 @@ export const createProduct = () => async (dispatch, getState) => {
   }
 };
 
-
 export const updateProduct = (product) => async (dispatch, getState) => {
   try {
     dispatch({
       type: PRODUCT_UPDATE_REQUEST,
-    })
+    });
 
     const {
       userLogin: { userInfo },
-    } = getState()
+    } = getState();
 
     const config = {
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         Authorization: `Bearer ${userInfo.jwtToken}`,
       },
-    }
+    };
 
     const { data } = await axios.put(
       `http://localhost:8080/api/v1/products/${product.id}`,
       product,
       config
-    )
+    );
 
     dispatch({
       type: PRODUCT_UPDATE_SUCCESS,
       payload: data,
-    })
-    dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data })
+    });
+    dispatch({ type: PRODUCT_DETAILS_SUCCESS, payload: data });
   } catch (error) {
     dispatch({
       type: PRODUCT_CREATE_FAIL,
